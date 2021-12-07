@@ -1,0 +1,26 @@
+import socket
+
+#we are making the socket as a server socket
+s = socket.socket() #server socket and c = #client socket
+print('socket Created')
+
+#to accept the connection we have to bind a socket with a port number( ça veut dire qu'on doit les lier)
+s.bind(('localhost',9999)) #9999 is the port number, we need one free, range of port number free = 65535
+
+#we know need to listen to the client but how much clients do we want to connect? here we will 3
+s.listen(3)
+print('wainting for connection ')
+
+#we need to handle the connections
+while True:
+    #we want to accept the connection of a client
+    c, adr =s.accept() #we need the socket and the adress
+
+    name = c.recv(1024).decode()
+    print("conected with", adr,name)
+    c.send(bytes('Welcome to the chat room','utf-8')) #server sends data to the client
+    c.close()
+
+#socket Created
+#wainting for connection
+#conected with ('127.0.0.1', 51876)
